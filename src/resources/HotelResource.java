@@ -23,13 +23,21 @@ public class HotelResource {
         return null;
     }
 
+    public static boolean isThereARoom(){
+        return ReservationService.rooms.isEmpty();
+    }
+
     public static void createACustomer(String email, String fistName, String lastName) {
         CustomerService.addCustomer(email,fistName,lastName);
     }
 
-    public static IRoom getRoom(String roomNumber){return null;}
+    public static IRoom getRoom(String roomNumber){
+        return ReservationService.getARoom(roomNumber);
+    }
 
-    public static Reservation bookARoom(String customerEmail, IRoom room, Date checkInDate, Date checkOutDate){return null;}
+    public static Reservation bookARoom(String customerEmail, IRoom room, LocalDate checkInDate, LocalDate checkOutDate){
+        return ReservationService.reserveARoom(getCustomer(customerEmail),room,checkInDate,checkOutDate);
+    }
 
     public static Collection<Reservation> getCustomersReservations(String customerEmail){
         return ReservationService.getCustomersReservation(getCustomer(customerEmail));

@@ -7,6 +7,13 @@ import resources.AdminResource;
 import java.util.*;
 
 public class AdminMenu {
+
+    final static int SEE_ALL_CUSTOMERS = 1;
+    final static int SEE_ALL_ROOMS = 2;
+    final static int SEE_ALL_RESERVATIONS = 3;
+    final static int ADD_A_ROOM = 4;
+    final static int MAIN_MENU = 5;
+
     static Scanner sc = new Scanner(System.in);
 
     public static void menu(){
@@ -21,16 +28,16 @@ public class AdminMenu {
             }
             userOption = sc.nextInt();
             switch (userOption){
-                case 1:
+                case SEE_ALL_CUSTOMERS:
                     AdminResource.getAllCustomers().forEach(System.out::println);
                     break;
-                case 2:
+                case SEE_ALL_ROOMS:
                     AdminResource.getAllRooms().forEach(System.out::println);
                     break;
-                case 3:
+                case SEE_ALL_RESERVATIONS:
                     AdminResource.displayAllReservations();
                     break;
-                case 4:
+                case ADD_A_ROOM:
                     List<Room> rooms = new ArrayList<>();
                     String option = "y";
                     do {
@@ -52,9 +59,8 @@ public class AdminMenu {
                     }while(option != "n");
                     AdminResource.addRoom(rooms);
                     break;
-                case 5:
+                case MAIN_MENU:
                     break;
-
             }
         }while(userOption != 5);
 

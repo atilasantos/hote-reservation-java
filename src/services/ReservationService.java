@@ -6,7 +6,6 @@ import models.Reservation;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class ReservationService {
@@ -58,10 +57,6 @@ public class ReservationService {
     }
 
     public static Collection<IRoom> checkAvailableRooms(LocalDate checkInDate, LocalDate checkOutDate){
-//        Predicate<Reservation> isGreaterThanCheckIn = reservation -> reservation.getCheckInDate().isAfter(checkInDate);
-//        Predicate<Reservation> isLessThanCheckOut = reservation -> reservation.getCheckOutDate().isBefore(checkOutDate);
-//        Predicate<Reservation> isEqualCheckIn = reservation -> reservation.getCheckInDate().equals(checkInDate);
-//        Predicate<Reservation> isEqualCheckOut = reservation -> reservation.getCheckOutDate().equals(checkOutDate);
         Set<IRoom> roomsWithReservations = new HashSet<>();
         Set<IRoom> unavailableRooms = new HashSet<>();
 
@@ -76,13 +71,9 @@ public class ReservationService {
                 }
             }
             roomsWithReservations.removeAll(unavailableRooms);
-//            availableRooms = allReservations.stream()
-//                    .filter((isGreaterThanCheckIn.negate().and(isEqualCheckIn.negate())).or(isLessThanCheckOut).negate().and(isEqualCheckOut.negate()))
-//                    .map(Reservation::getRoom)
-//                    .collect(Collectors.toSet());
             roomsWithReservations.addAll(availableRoomsWithoutReservations());
         }catch (NullPointerException e){
-            e.getMessage();
+            System.out.println("There is no rooms available.");
         }
         return roomsWithReservations;
     }
