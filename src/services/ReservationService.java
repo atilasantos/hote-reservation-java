@@ -28,9 +28,15 @@ public class ReservationService {
 
     public static Reservation reserveARoom(Customer customer, IRoom room, LocalDate checkInDate, LocalDate checkOutDate){
         Reservation reservation = new Reservation(customer,room,checkInDate,checkOutDate);
-        allReservations.add(reservation);
-        System.out.println(reservation);
-        return reservation;
+        boolean hasEqualToAExistingReservation = allReservations.stream().anyMatch(reserve -> reserve.equals(reservation));
+        if(hasEqualToAExistingReservation){
+            System.out.println("Reservation already exists.");
+            return null;
+        }else{
+            allReservations.add(reservation);
+            System.out.println(reservation);
+            return reservation;
+        }
     }
 
     public static Collection<IRoom> findRooms(LocalDate checkInDate, LocalDate checkOutDate){

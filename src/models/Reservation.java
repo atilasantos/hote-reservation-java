@@ -4,6 +4,7 @@ import models.enums.RoomType;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
 public class Reservation {
 
@@ -49,5 +50,18 @@ public class Reservation {
                 getCheckOutDate().getDayOfMonth() + " " + getCheckOutDate().getYear() + "\n");
         sb.append("+++++++++++++++++++++++++++++++++++\n");
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reservation that = (Reservation) o;
+        return room.equals(that.room) && checkInDate.equals(that.checkInDate) && checkOutDate.equals(that.checkOutDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(room, checkInDate, checkOutDate);
     }
 }
