@@ -20,7 +20,10 @@ public class ConfigurationSecurity extends WebSecurityConfigurerAdapter {
                 http.authorizeRequests()
                         .antMatchers(HttpMethod.GET, "/auth").permitAll()
                         .antMatchers(HttpMethod.GET, "/teste").permitAll()
-                        .anyRequest().denyAll();
+                        .antMatchers(HttpMethod.GET,"/hotel-reservation/v1/admin/customers").permitAll()
+                        .antMatchers(HttpMethod.POST,"/hotel-reservation/v1/admin/room").permitAll()
+                        .antMatchers(HttpMethod.GET,"/hotel-reservation/v1/admin/room").permitAll();
+                http.csrf().disable();
         }
 
 
