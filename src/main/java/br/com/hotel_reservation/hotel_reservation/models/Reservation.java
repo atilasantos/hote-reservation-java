@@ -1,6 +1,7 @@
 package br.com.hotel_reservation.hotel_reservation.models;
 
 import br.com.hotel_reservation.hotel_reservation.models.enums.RoomType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
 
@@ -11,7 +12,11 @@ public class Reservation {
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
 
-    public Reservation(Customer customer, Room room, LocalDate checkInDate, LocalDate checkOutDate) {
+    public Reservation(
+            @JsonProperty("customer") Customer customer,
+            @JsonProperty("room") Room room,
+            @JsonProperty("check-in") LocalDate checkInDate,
+            @JsonProperty("check-out")LocalDate checkOutDate) {
         this.customer = customer;
         this.room = room;
         this.checkInDate = checkInDate;

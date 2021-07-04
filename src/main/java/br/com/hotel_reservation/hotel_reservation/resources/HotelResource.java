@@ -30,13 +30,13 @@ public class HotelResource {
         return ResponseEntity.ok(ReservationService.reserveARoom(CustomerService.getCustomer(customerEmail),room,checkInDate,checkOutDate));
     }
 
-    @GetMapping("/customers/reservation")
-    public static ResponseEntity<Collection<Reservation>> getCustomersReservations(String customerEmail) throws CustomerNotFoundException {
+    @GetMapping("/customer/reservation")
+    public static ResponseEntity<Collection<Reservation>> getCustomersReservations(@RequestParam("e-mail") String customerEmail) throws CustomerNotFoundException {
         return ResponseEntity.ok(ReservationService.getCustomersReservation(CustomerService.getCustomer(customerEmail)));
     }
 
-    @GetMapping("room")
-    public static Collection<Room> findARoom(LocalDate checkIn, LocalDate checkOut){
-        return ReservationService.findRooms(checkIn,checkOut);
+    @GetMapping("/room")
+    public static ResponseEntity<Collection<Room>> findARoom(LocalDate checkIn, LocalDate checkOut){
+        return ResponseEntity.ok(ReservationService.findRooms(checkIn,checkOut));
     }
 }

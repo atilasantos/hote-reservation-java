@@ -1,13 +1,17 @@
 package br.com.hotel_reservation.hotel_reservation.config;
 
 import br.com.hotel_reservation.hotel_reservation.models.Customer;
+import br.com.hotel_reservation.hotel_reservation.models.Reservation;
 import br.com.hotel_reservation.hotel_reservation.models.Room;
 import br.com.hotel_reservation.hotel_reservation.models.enums.RoomType;
 import br.com.hotel_reservation.hotel_reservation.services.CustomerService;
 import br.com.hotel_reservation.hotel_reservation.services.ReservationService;
+import org.apache.tomcat.jni.Local;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,6 +59,25 @@ public class TestConfig implements CommandLineRunner {
                         r6.getNumber(),r6
                 )
         )
+        );
+
+        Reservation reservation1 = new Reservation(c1, r1, LocalDate.now().plusDays(2), LocalDate.now().plusDays(7));
+        Reservation reservation2 = new Reservation(c2, r2, LocalDate.now().plusDays(9), LocalDate.now().plusDays(13));
+        Reservation reservation3 = new Reservation(c3, r3, LocalDate.now().plusDays(15), LocalDate.now().plusDays(20));
+        Reservation reservation4 = new Reservation(c4, r4, LocalDate.now().plusDays(23), LocalDate.now().plusDays(35));
+        Reservation reservation5 = new Reservation(c5, r5, LocalDate.now().plusDays(36), LocalDate.now().plusDays(66));
+        Reservation reservation6 = new Reservation(c6, r6, LocalDate.now().plusDays(68), LocalDate.now().plusDays(77));
+        Reservation reservation7 = new Reservation(c7, r2, LocalDate.now().plusDays(79), LocalDate.now().plusDays(88));
+
+        ReservationService.allReservations.addAll(
+                Arrays.asList(
+                        reservation1,
+                        reservation2,
+                        reservation6,
+                        reservation3,
+                        reservation7,
+                        reservation5,
+                        reservation4)
         );
     }
 }
