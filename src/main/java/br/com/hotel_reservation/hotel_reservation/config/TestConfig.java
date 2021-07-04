@@ -1,7 +1,6 @@
 package br.com.hotel_reservation.hotel_reservation.config;
 
 import br.com.hotel_reservation.hotel_reservation.models.Customer;
-import br.com.hotel_reservation.hotel_reservation.models.IRoom;
 import br.com.hotel_reservation.hotel_reservation.models.Room;
 import br.com.hotel_reservation.hotel_reservation.models.enums.RoomType;
 import br.com.hotel_reservation.hotel_reservation.services.CustomerService;
@@ -39,21 +38,21 @@ public class TestConfig implements CommandLineRunner {
         )
         );
 
-        IRoom r1 = new Room("101",750.00, RoomType.DOUBLE);
-        IRoom r2 = new Room("201",110.00, RoomType.SINGLE);
-        IRoom r3 = new Room("301",850.00, RoomType.SINGLE);
-        IRoom r4 = new Room("401",350.00, RoomType.DOUBLE);
-        IRoom r5 = new Room("501",2750.00, RoomType.SINGLE);
-        IRoom r6 = new Room("601",1750.00, RoomType.DOUBLE);
+        Room r1 = new Room("101",750.00, RoomType.DOUBLE);
+        Room r2 = new Room("201",110.00, RoomType.SINGLE);
+        Room r3 = new Room("301",850.00, RoomType.SINGLE);
+        Room r4 = new Room("401",350.00, RoomType.DOUBLE);
+        Room r5 = new Room("501",2750.00, RoomType.SINGLE);
+        Room r6 = new Room("601",1750.00, RoomType.DOUBLE);
 
         ReservationService.rooms.putAll(new HashMap<>(
                 Map.of(
-                        r1.getRoomNumber(),r1,
-                        r2.getRoomNumber(),r2,
-                        r3.getRoomNumber(),r3,
-                        r4.getRoomNumber(),r4,
-                        r5.getRoomNumber(),r5,
-                        r6.getRoomNumber(),r6
+                        r1.getNumber(),r1,
+                        r2.getNumber(),r2,
+                        r3.getNumber(),r3,
+                        r4.getNumber(),r4,
+                        r5.getNumber(),r5,
+                        r6.getNumber(),r6
                 )
         )
         );

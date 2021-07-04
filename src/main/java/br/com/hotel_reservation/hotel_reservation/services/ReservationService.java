@@ -1,8 +1,8 @@
 package br.com.hotel_reservation.hotel_reservation.services;
 
 import br.com.hotel_reservation.hotel_reservation.models.Customer;
-import br.com.hotel_reservation.hotel_reservation.models.IRoom;
 import br.com.hotel_reservation.hotel_reservation.models.Reservation;
+import br.com.hotel_reservation.hotel_reservation.models.Room;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -13,30 +13,30 @@ import java.util.stream.Collectors;
 public class ReservationService {
 
     public static List<Reservation> allReservations = new ArrayList<>();
-    public static Map<String, IRoom> rooms = new HashMap<>();
+    public static Map<String, Room> rooms = new HashMap<>();
 
-    public static void addRoom(IRoom room){
-        if(!rooms.containsKey(room.getRoomNumber())){
-            rooms.put(room.getRoomNumber(),room);
+    public static void addRoom(Room room){
+        if(!rooms.containsKey(room.getNumber())){
+            rooms.put(room.getNumber(),room);
         }else{
-            System.out.printf("Tried to add a existing room(number: %s)\n",room.getRoomNumber());
+            System.out.printf("Tried to add a existing room(number: %s)\n",room.getNumber());
         }
 
     }
 
-    public static IRoom getARoom(String roomId){
+    public static Room getARoom(String roomId){
         return rooms.get(roomId);
     }
 
-    public static Reservation reserveARoom(Customer customer, IRoom room, LocalDate checkInDate, LocalDate checkOutDate){
+    public static Reservation reserveARoom(Customer customer, Room room, LocalDate checkInDate, LocalDate checkOutDate){
         Reservation reservation = new Reservation(customer,room,checkInDate,checkOutDate);
         allReservations.add(reservation);
         System.out.println(reservation);
         return reservation;
     }
 
-    public static Collection<IRoom> findRooms(LocalDate checkInDate, LocalDate checkOutDate){
-        Collection<IRoom> roomsAvailable = checkAvailableRooms(checkInDate,checkOutDate);
+    public static Collection<Room> findRooms(LocalDate checkInDate, LocalDate checkOutDate){
+        Collection<Room> roomsAvailable = checkAvailableRooms(checkInDate,checkOutDate);
         return roomsAvailable;
     }
 
@@ -50,17 +50,13 @@ public class ReservationService {
         }
     }
 
-    public static void printAllReservation(){
-        if(!allReservations.isEmpty()){
-            allReservations.forEach(System.out::println);
-        }else{
-            System.out.println("There is no reservations available.");
-        }
+    public static Collection<Reservation> getAllReservations(){
+        return allReservations;
     }
 
-    public static Collection<IRoom> checkAvailableRooms(LocalDate checkInDate, LocalDate checkOutDate){
-        Set<IRoom> roomsWithReservations = new HashSet<>();
-        Set<IRoom> unavailableRooms = new HashSet<>();
+    public static Collection<Room> checkAvailableRooms(LocalDate checkInDate, LocalDate checkOutDate){
+        Set<Room> roomsWithReservations = new HashSet<>();
+        Set<Room> unavailableRooms = new HashSet<>();
 
         try{
             for (Reservation reservation : allReservations){
@@ -80,9 +76,9 @@ public class ReservationService {
         return roomsWithReservations;
     }
 
-    public static Collection<IRoom> availableRoomsWithoutReservations(){
-        Map<String, IRoom> copyRooms = new HashMap<>(rooms);
-        Set<IRoom> roomsReserved = allReservations.stream()
+    public static Collection<Room> availableRoomsWithoutReservations(){
+        Map<String, Room> copyRooms = new HashMap<>(rooms);
+        Set<Room> roomsReserved = allReservations.stream()
                     .map(Reservation::getRoom)
                     .collect(Collectors.toSet());
         copyRooms.values().removeAll(roomsReserved);

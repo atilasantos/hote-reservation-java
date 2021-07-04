@@ -1,47 +1,44 @@
 package br.com.hotel_reservation.hotel_reservation.models;
 
 import br.com.hotel_reservation.hotel_reservation.models.enums.RoomType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Room implements IRoom{
+public class Room {
 
-    protected String roomNumber;
+    protected String number;
     protected Double price;
-    protected RoomType roomType;
-
-    public Room(String roomNumber, Double price, RoomType enumeration) {
-        this.roomNumber = roomNumber;
-        this.price = price;
-        this.roomType = enumeration;
-    }
+    protected RoomType type;
 
     public Room() {
     }
 
-    @Override
-    public String getRoomNumber() {
-        return this.roomNumber;
+    public Room(
+            @JsonProperty("number") String roomNumber,
+            @JsonProperty("price") Double price,
+            @JsonProperty("type") RoomType enumeration) {
+        this.number = roomNumber;
+        this.price = price;
+        this.type = enumeration;
     }
 
-    @Override
-    public Double getRoomPrice() {
+    public String getNumber() {
+        return this.number;
+    }
+
+    public Double getPrice() {
         return this.price;
     }
 
-    @Override
-    public RoomType getRoomType() {
-        return this.roomType;
+    public RoomType getType() {
+        return this.type;
     }
 
-    @Override
-    public boolean isFree() {
-        return false;
-    }
 
     @Override
     public String toString() {
         return "Room number: " +
-                roomNumber +
-                " " + (roomType.equals(RoomType.SINGLE)? "Single bed ": "Double bed ") +
-                "Room price: " + String.format("%.2f",price);
+                number +
+                " " + (type.equals(RoomType.SINGLE)? "Single bed ": "Double bed ") +
+                "Room price: " + String.format("%.2f", price);
     }
 }
