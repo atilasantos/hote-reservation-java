@@ -3,14 +3,17 @@ package br.com.hotel_reservation.hotel_reservation.services;
 import br.com.hotel_reservation.hotel_reservation.exceptions.CustomerNotFoundException;
 import br.com.hotel_reservation.hotel_reservation.exceptions.InvalidInputFormatException;
 import br.com.hotel_reservation.hotel_reservation.models.Customer;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class CustomerService {
 
     public static Map<String, Customer> customers = new HashMap<String ,Customer>();
+
 
     /**
      * This method will interact with the customer

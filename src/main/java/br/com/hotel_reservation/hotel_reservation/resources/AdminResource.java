@@ -1,32 +1,46 @@
 package br.com.hotel_reservation.hotel_reservation.resources;
 
+import br.com.hotel_reservation.hotel_reservation.exceptions.CustomerNotFoundException;
+import br.com.hotel_reservation.hotel_reservation.exceptions.InvalidInputFormatException;
 import br.com.hotel_reservation.hotel_reservation.models.Customer;
 import br.com.hotel_reservation.hotel_reservation.models.IRoom;
 import br.com.hotel_reservation.hotel_reservation.models.Room;
 import br.com.hotel_reservation.hotel_reservation.services.CustomerService;
 import br.com.hotel_reservation.hotel_reservation.services.ReservationService;
+import org.apache.coyote.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
+@RestController
+@RequestMapping(value = "/hotel-reservation/v1/admin")
 public class AdminResource {
-    public static Customer getCustomer(String email){
-        return null;
+
+
+    @GetMapping("/customer")
+    public ResponseEntity<Customer>  getCustomer(@RequestParam String email) throws CustomerNotFoundException {
+        return ResponseEntity.ok(CustomerService.getCustomer(email));
     }
 
-    public static void addRoom(List<Room> rooms){
-        rooms.forEach(ReservationService::addRoom);
+    @PostMapping(path = "/room", consumes = "application/json")
+    public static void addRoom(@RequestBody Room room){
+        ReservationService.addRoom(room);
+        ResponseEntity.status(HttpStatus.resolve(201));
     }
 
-    public static Collection<IRoom> getAllRooms(){
-        if(ReservationService.rooms.isEmpty()){
-            System.out.println("There is no rooms available.");
-        }
-        return ReservationService.rooms.values();
+    @GetMapping("rooms")
+    public ResponseEntity<Collection<IRoom>> getAllRooms(){
+        return ResponseEntity.ok(ReservationService.rooms.values());
     }
 
-    public static Collection<Customer> getAllCustomers(){
-        return CustomerService.getAllCustomers();
+    @GetMapping("/customers")
+    public static ResponseEntity<Collection<Customer>> getAllCustomers(){
+        return ResponseEntity.ok(CustomerService.getAllCustomers());
     }
 
     public static void displayAllReservations(){

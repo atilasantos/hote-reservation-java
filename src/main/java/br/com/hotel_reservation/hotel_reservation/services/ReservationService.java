@@ -3,11 +3,13 @@ package br.com.hotel_reservation.hotel_reservation.services;
 import br.com.hotel_reservation.hotel_reservation.models.Customer;
 import br.com.hotel_reservation.hotel_reservation.models.IRoom;
 import br.com.hotel_reservation.hotel_reservation.models.Reservation;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Component
 public class ReservationService {
 
     public static List<Reservation> allReservations = new ArrayList<>();

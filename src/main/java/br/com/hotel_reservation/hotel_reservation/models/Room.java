@@ -6,12 +6,12 @@ public class Room implements IRoom{
 
     protected String roomNumber;
     protected Double price;
-    protected RoomType enumeration;
+    protected RoomType roomType;
 
     public Room(String roomNumber, Double price, RoomType enumeration) {
         this.roomNumber = roomNumber;
         this.price = price;
-        this.enumeration = enumeration;
+        this.roomType = enumeration;
     }
 
     public Room() {
@@ -29,7 +29,7 @@ public class Room implements IRoom{
 
     @Override
     public RoomType getRoomType() {
-        return this.enumeration;
+        return this.roomType;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Room implements IRoom{
     public String toString() {
         return "Room number: " +
                 roomNumber +
-                " " + (enumeration.equals(RoomType.SINGLE)? "Single bed ": "Double bed ") +
+                " " + (roomType.equals(RoomType.SINGLE)? "Single bed ": "Double bed ") +
                 "Room price: " + String.format("%.2f",price);
     }
 }

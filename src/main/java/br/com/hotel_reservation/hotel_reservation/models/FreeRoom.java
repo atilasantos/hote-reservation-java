@@ -8,7 +8,7 @@ public class FreeRoom extends Room{
     public FreeRoom(String roomNumber, Double price, RoomType enumeration) {
         this.price = 0.;
         this.roomNumber = roomNumber;
-        this.enumeration = enumeration;
+        this.roomType = enumeration;
     }
 
     @Override
@@ -16,7 +16,7 @@ public class FreeRoom extends Room{
         return "FreeRoom{" +
                 "roomNumber='" + roomNumber + '\'' +
                 ", price=" + price +
-                ", enumeration=" + enumeration +
+                ", enumeration=" + roomType +
                 '}';
     }
 }
