@@ -1,0 +1,13 @@
+package br.com.hotel_reservation.hotel_reservation;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class HotelReservationApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(HotelReservationApplication.class, args);
+	}
+
+}
