@@ -3,51 +3,32 @@ package br.com.hotel_reservation.hotel_reservation.services;
 import br.com.hotel_reservation.hotel_reservation.exceptions.CustomerNotFoundException;
 import br.com.hotel_reservation.hotel_reservation.exceptions.InvalidInputFormatException;
 import br.com.hotel_reservation.hotel_reservation.models.Customer;
+import br.com.hotel_reservation.hotel_reservation.repositories.CustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-@Component
+@Service
 public class CustomerService {
 
-    public static Map<String, Customer> customers = new HashMap<String ,Customer>();
+    @Autowired
+    CustomerRepository customerRepository;
 
-
-    /**
-     * This method will interact with the customer
-     * @ email provided by the customer
-     * @param firstName provided by the customer
-     * @param lastName provided by the customer
-     */
-    public static void addCustomer(String email, String firstName, String lastName) {
-        if(!customers.containsKey(email)){
-            try{
-                customers.put(email,new Customer(firstName,lastName,email));
-                System.out.println("User added.");
-            }
-            catch (InvalidInputFormatException e){
-                System.out.println(e.getMessage());
-            }
-        }
-        else{
-            System.out.println("User already exists.");
-        }
+    public List<Customer> getAllCustomers(){
+        return customerRepository.findAll();
     }
 
-    public static Customer getCustomer(String customerEmail) throws CustomerNotFoundException {
-        return customers.get(customerEmail);
+    public void addCustomer(Customer customer){
+        customerRepository.save(customer);
     }
 
-    /**
-     * This method will interact only with admin
-     * @return the state of all the customers
-     */
-    public static Collection<Customer> getAllCustomers(){
-        if(customers.isEmpty()){
-            System.out.println("There is no customers available.");
-        }
-        return customers.values();
+    public Customer getCustomer(String email){
+        return customerRepository.findByEmail(email);
     }
+
 }

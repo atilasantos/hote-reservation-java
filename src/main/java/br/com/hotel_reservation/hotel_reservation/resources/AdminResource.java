@@ -7,6 +7,7 @@ import br.com.hotel_reservation.hotel_reservation.models.Room;
 import br.com.hotel_reservation.hotel_reservation.services.CustomerService;
 import br.com.hotel_reservation.hotel_reservation.services.ReservationService;
 import org.apache.coyote.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +18,12 @@ import java.util.Collection;
 @RequestMapping(value = "/hotel-reservation/v1/admin")
 public class AdminResource {
 
+    @Autowired
+    CustomerService customerService;
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "/room", consumes = "application/json")
-    public static void addRoom(@RequestBody Room room){
+    public void addRoom(@RequestBody Room room){
         ReservationService.addRoom(room);
     }
 
@@ -29,12 +33,12 @@ public class AdminResource {
     }
 
     @GetMapping("/customers")
-    public static ResponseEntity<Collection<Customer>> getAllCustomers(){
-        return ResponseEntity.ok(CustomerService.getAllCustomers());
+    public ResponseEntity<Collection<Customer>> getAllCustomers(){
+        return ResponseEntity.ok(customerService.getAllCustomers());
     }
 
     @GetMapping("/reservations")
-    public static ResponseEntity<Collection<Reservation>> displayAllReservations(){
+    public  ResponseEntity<Collection<Reservation>> displayAllReservations(){
         return ResponseEntity.ok(ReservationService.getAllReservations());
     }
 }
