@@ -5,6 +5,7 @@ import br.com.hotel_reservation.hotel_reservation.models.Reservation;
 import br.com.hotel_reservation.hotel_reservation.models.Room;
 import br.com.hotel_reservation.hotel_reservation.models.enums.RoomType;
 import br.com.hotel_reservation.hotel_reservation.repositories.CustomerRepository;
+import br.com.hotel_reservation.hotel_reservation.repositories.RoomRepository;
 import br.com.hotel_reservation.hotel_reservation.services.CustomerService;
 import br.com.hotel_reservation.hotel_reservation.services.ReservationService;
 import org.apache.tomcat.jni.Local;
@@ -23,6 +24,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     CustomerRepository customerRepository;
 
+    @Autowired
+    RoomRepository roomRepository;
+
     @Override
     public void run(String... args) throws Exception{
 
@@ -33,8 +37,12 @@ public class TestConfig implements CommandLineRunner {
         Customer c5 = new Customer(null,"Fernanda","Suckow", "fernanda@gmail.com");
         Customer c6 = new Customer(null,"Camila","Clara", "camila@gmail.com");
         Customer c7 = new Customer(null,"Atila","Romao", "atila@gmail.com");
-
         customerRepository.saveAll(Arrays.asList(c1,c2,c3,c4,c5,c6,c7));
+
+        Room r1 = new Room(null,"101",758.00,RoomType.SINGLE);
+        Room r2 = new Room(null,"201",1261.10,RoomType.DOUBLE);
+        Room r3 = new Room(null,"301",2457.99,RoomType.DOUBLE);
+        roomRepository.saveAll(Arrays.asList(r1,r2,r3));
 
 
     }
