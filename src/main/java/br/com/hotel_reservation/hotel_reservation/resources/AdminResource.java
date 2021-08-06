@@ -19,17 +19,20 @@ import java.util.Collection;
 public class AdminResource {
 
     @Autowired
+    ReservationService reservationService;
+
+    @Autowired
     CustomerService customerService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "/room", consumes = "application/json")
     public void addRoom(@RequestBody Room room){
-        ReservationService.addRoom(room);
+        reservationService.addRoom(room);
     }
 
     @GetMapping("/rooms")
     public ResponseEntity<Collection<Room>> getAllRooms(){
-        return ResponseEntity.ok(ReservationService.rooms.values());
+        return ResponseEntity.ok().body(reservationService.getAllRooms());
     }
 
     @GetMapping("/customers")
@@ -39,6 +42,6 @@ public class AdminResource {
 
     @GetMapping("/reservations")
     public  ResponseEntity<Collection<Reservation>> displayAllReservations(){
-        return ResponseEntity.ok(ReservationService.getAllReservations());
+        return null;
     }
 }

@@ -28,7 +28,10 @@ public class CustomerService {
     }
 
     public Customer getCustomer(String email){
-        return customerRepository.findByEmail(email);
+        return customerRepository.findCustomerByEmail(email);
     }
 
+    public Collection<Customer> getCustomersByName(String name){
+        return customerRepository.findCustomerByFirstNameContaining(name);
+    }
 }

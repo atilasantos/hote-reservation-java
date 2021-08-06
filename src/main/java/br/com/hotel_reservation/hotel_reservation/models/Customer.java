@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "customers")
 public class Customer implements Serializable {
 
     @Id

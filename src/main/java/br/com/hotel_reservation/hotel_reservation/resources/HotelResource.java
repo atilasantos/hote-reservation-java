@@ -13,6 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/hotel-reservation/v1")
@@ -21,12 +22,17 @@ public class HotelResource {
     @Autowired
     CustomerService customerService;
 
-    @GetMapping("/customers")
-    public ResponseEntity<Customer> getCustomer(@RequestParam String email) throws CustomerNotFoundException {
+    @GetMapping("/customer/{email}")
+    public ResponseEntity<Customer> getCustomer(@PathVariable String email) {
         return ResponseEntity.ok(customerService.getCustomer(email));
     }
 
-    @PostMapping(path = "/customers", consumes = "application/json")
+    @GetMapping("/customer")
+    public ResponseEntity<Collection<Customer>> getCustomerByName(@RequestParam(name = "name") String name){
+        return ResponseEntity.ok(customerService.getCustomersByName(name));
+    }
+
+    @PostMapping(path = "/customer", consumes = "application/json")
     public ResponseEntity<Customer> createACustomer(@RequestBody Customer customer) {
         customerService.addCustomer(customer);
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().
@@ -38,6 +44,6 @@ public class HotelResource {
 
     @GetMapping("/room")
     public ResponseEntity<Collection<Room>> findARoom(LocalDate checkIn, LocalDate checkOut){
-        return ResponseEntity.ok(ReservationService.findRooms(checkIn,checkOut));
+        return null;
     }
 }
